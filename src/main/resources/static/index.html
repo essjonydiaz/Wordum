@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Editor SaaS</title>
+<link rel="stylesheet" href="/styles.css">
+</head>
+<body>
+
+<header>
+    <div class="marca">
+        <div class="logo">E</div>
+        Editor SaaS
+        <small>
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+                 stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                <path d="M17.5 19a4.5 4.5 0 0 0 .5-8.97 6 6 0 0 0-11.6-1.5A4.5 4.5 0 0 0 6.5 19h11z"/>
+            </svg>
+            Cómputo en la nube
+        </small>
+    </div>
+    <div class="spacer"></div>
+    <div class="estado" id="estado">Listo</div>
+    <button class="btn-guardar" id="btnGuardar" onclick="guardar()">Guardar</button>
+</header>
+
+<div class="aviso-error" id="avisoError"></div>
+
+<div class="capa-modal" id="capaModal">
+    <div class="modal" role="dialog" aria-modal="true" aria-labelledby="modalTitulo">
+        <h2 id="modalTitulo">Eliminar documento</h2>
+        <p>¿Seguro que quieres eliminar <span class="nombre-doc" id="modalNombre"></span>?</p>
+        <p class="nota">Esta acción no se puede deshacer.</p>
+        <div class="modal-botones">
+            <button class="btn-cancelar" id="modalCancelar">Cancelar</button>
+            <button class="btn-eliminar" id="modalAceptar">Eliminar</button>
+        </div>
+    </div>
+</div>
+
+<div class="cuerpo">
+
+    <aside>
+        <button class="btn-nuevo" onclick="nuevoDocumento()">
+            <span>+</span> Documento nuevo
+        </button>
+
+        <input type="text" class="buscador" id="buscador"
+               placeholder="Buscar por título…" oninput="pintarLista()">
+
+        <div class="titulo-panel">
+            <span>Mis documentos <span class="cuenta" id="contador">0</span></span>
+            <select id="orden" onchange="pintarLista()">
+                <option value="fecha">Recientes</option>
+                <option value="titulo">A–Z</option>
+            </select>
+        </div>
+
+        <ul class="lista" id="listaDocumentos"></ul>
+    </aside>
+
+    <main>
+        <div class="hoja">
+            <input type="text" id="titulo" placeholder="Documento sin título" maxlength="150"
+                   oninput="alEscribir()">
+
+            <div class="meta-autor">
+                Por
+                <input type="text" id="autor" placeholder="Agregar autor…" oninput="alEscribir()">
+            </div>
+
+            <div class="separador"></div>
+
+            <textarea id="contenido" placeholder="Empieza a escribir…"
+                      oninput="alEscribir()"></textarea>
+
+            <div class="pie">
+                <span id="conteo">0 palabras</span>
+                <span id="limite"></span>
+                <div class="spacer"></div>
+                <span><kbd>Ctrl</kbd> + <kbd>S</kbd> para guardar</span>
+            </div>
+        </div>
+    </main>
+
+</div>
+
+<script src="/app.js"></script>
+
+</body>
+</html>
