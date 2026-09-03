@@ -1,0 +1,36 @@
+/* Estilos del componente Editor */
+
+.editor {
+  max-width: 900px;
+  margin: 0 auto;
+  background-color: white;
+  padding: 30px;
+  border-radius: 10px;
+}
+
+.editor input,
+.editor textarea {
+  width: 100%;
+  box-sizing: border-box;
+  margin-bottom: 15px;
+  padding: 12px;
+  font-size: 16px;
+  font-family: inherit;
+}
+
+.editor textarea {
+  resize: vertical;
+}
+
+.editor button {
+  padding: 10px 20px;
+  font-size: 16px;
+  cursor: pointer;
+}
+
+/* Contadores que se actualizan solos cuando cambia el estado */
+.editor .dato {
+  margin: 0 0 15px;
+  color: #555;
+  font-size: 14px;
+}
