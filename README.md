@@ -66,7 +66,7 @@ gracias a `spring.jpa.hibernate.ddl-auto=update`, sin escribir SQL.
 
 ## Documentación de la API
 
-**URL base:** `http://l ocalhost:8080/api/documentos`
+**URL base:** `http://localhost:8080/api/documentos`
 
 | # | Método | URL | Descripción |
 |:---:|---|---|---|
@@ -221,7 +221,9 @@ src/main/java/com/example/editortextosaas/
 src/main/resources/
 ├── application.properties            Configuración de H2
 └── static/
-    └── index.html                    Interfaz web  (Fase 4)
+    ├── index.html                    Estructura de la pagina  (Fase 4)
+    ├── styles.css                    Estilos  (Fase 4)
+    └── app.js                        Logica del navegador  (Fase 4)
 ```
 
 ### Sobre la capa de servicio
