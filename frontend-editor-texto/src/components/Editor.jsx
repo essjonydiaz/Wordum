@@ -6,9 +6,11 @@ function Editor() {
   const [titulo, setTitulo] = useState("");
   const [contenido, setContenido] = useState("");
 
-  // Se recalcula solo en cada render, cuando cambia el contenido
+  // Se recalcula en cada render, cuando cambia el contenido
   const palabras =
     contenido.trim() === "" ? 0 : contenido.trim().split(/\s+/).length;
+
+  const vacio = titulo.trim() === "" && contenido.trim() === "";
 
   // Por ahora solo lo mostramos en la consola:
   // todavia no hay conexion con Spring Boot
@@ -19,30 +21,71 @@ function Editor() {
     });
   }
 
+  // Arma un archivo .txt en memoria y lo entrega al navegador
+  function descargarDocumento() {
+    const nombre = titulo.trim() === "" ? "documento" : titulo.trim();
+    const texto = titulo.trim() === "" ? contenido : titulo + "\n\n" + contenido;
+
+    const archivo = new Blob([texto], { type: "text/plain;charset=utf-8" });
+    const url = URL.createObjectURL(archivo);
+
+    const enlace = document.createElement("a");
+    enlace.href = url;
+    enlace.download = nombre + ".txt";
+    enlace.click();
+
+    // Liberar la memoria que ocupaba el archivo temporal
+    URL.revokeObjectURL(url);
+  }
+
   return (
     <section className="editor">
-      <h2>Documento</h2>
-
       <input
         type="text"
-        placeholder="Título del documento"
+        className="titulo"
+        placeholder="Documento sin título"
         value={titulo}
         onChange={(e) => setTitulo(e.target.value)}
       />
 
-      <p className="dato">Título actual: {titulo}</p>
+      <p className="titulo-actual">
+        Título actual: <span>{titulo}</span>
+      </p>
+
+      <div className="separador"></div>
 
       <textarea
-        placeholder="Escribe aquí..."
+        className="contenido"
+        placeholder="Empieza a escribir…"
         rows="15"
         value={contenido}
         onChange={(e) => setContenido(e.target.value)}
       />
 
-      <p className="dato">Caracteres: {contenido.length}</p>
-      <p className="dato">Palabras: {palabras}</p>
+      <div className="pie">
+        <div className="contadores">
+          <span>Caracteres: {contenido.length}</span>
+          <span>Palabras: {palabras}</span>
+        </div>
 
-      <button onClick={guardarDocumento}>Guardar</button>
+        <div className="espacio"></div>
+
+        <button
+          className="btn-descargar"
+          onClick={descargarDocumento}
+          disabled={vacio}
+        >
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"
+               strokeLinecap="round" strokeLinejoin="round">
+            <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4M7 10l5 5 5-5M12 15V3" />
+          </svg>
+          Descargar
+        </button>
+
+        <button className="btn-guardar" onClick={guardarDocumento}>
+          Guardar
+        </button>
+      </div>
     </section>
   );
 }

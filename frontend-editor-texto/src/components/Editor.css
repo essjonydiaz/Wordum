@@ -1,36 +1,122 @@
 /* Estilos del componente Editor */
 
 .editor {
-  max-width: 900px;
+  max-width: 720px;
   margin: 0 auto;
-  background-color: white;
-  padding: 30px;
-  border-radius: 10px;
+  background: var(--paper);
+  border: 1px solid var(--border);
+  border-radius: 12px;
+  box-shadow: var(--shadow);
+  padding: 40px 52px 20px;
+  display: flex;
+  flex-direction: column;
 }
 
-.editor input,
-.editor textarea {
+.editor .titulo {
   width: 100%;
-  box-sizing: border-box;
-  margin-bottom: 15px;
-  padding: 12px;
-  font-size: 16px;
-  font-family: inherit;
+  font-family: var(--serif);
+  font-size: 30px;
+  font-weight: 600;
+  line-height: 1.25;
+  color: var(--ink-strong);
+  background: transparent;
+  border: none;
+  border-bottom: 2px solid transparent;
+  outline: none;
+  padding: 2px 0;
+  transition: border-color .15s;
+}
+.editor .titulo:focus { border-bottom-color: var(--accent); }
+.editor .titulo::placeholder { color: var(--ink-faint); font-weight: 500; }
+
+/* Linea que muestra en vivo el valor del estado (PARTE 15) */
+.editor .titulo-actual {
+  margin: 14px 0 0;
+  font-family: var(--serif);
+  font-style: italic;
+  font-size: 14px;
+  color: var(--accent);
+}
+.editor .titulo-actual span {
+  color: var(--ink-strong);
 }
 
-.editor textarea {
-  resize: vertical;
+.editor .separador {
+  height: 1px;
+  background: var(--border);
+  margin: 20px 0 6px;
 }
+
+.editor .contenido {
+  width: 100%;
+  min-height: 320px;
+  font-family: var(--serif);
+  font-size: 17px;
+  line-height: 1.75;
+  color: var(--ink-strong);
+  background: transparent;
+  border: none;
+  outline: none;
+  resize: vertical;
+  padding: 8px 0;
+}
+.editor .contenido::placeholder { color: var(--ink-faint); }
+
+/* Pie con los contadores y los botones */
+.editor .pie {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  margin-top: 14px;
+  padding-top: 14px;
+  border-top: 1px solid var(--border);
+  font-size: 12px;
+  color: var(--ink-faint);
+}
+
+.editor .contadores {
+  display: flex;
+  gap: 14px;
+}
+
+.editor .espacio { flex: 1; }
 
 .editor button {
-  padding: 10px 20px;
-  font-size: 16px;
+  font-family: inherit;
+  font-size: 13.5px;
+  border: none;
+  border-radius: 7px;
   cursor: pointer;
+  transition: background .15s, border-color .15s, color .15s;
 }
 
-/* Contadores que se actualizan solos cuando cambia el estado */
-.editor .dato {
-  margin: 0 0 15px;
-  color: #555;
-  font-size: 14px;
+.editor .btn-guardar {
+  background: var(--accent);
+  color: #fff;
+  font-weight: 550;
+  padding: 8px 18px;
+  box-shadow: 0 1px 2px rgba(124,92,255,.3);
+}
+.editor .btn-guardar:hover { background: #6b4aef; }
+
+.editor .btn-descargar {
+  background: transparent;
+  color: var(--ink-soft);
+  border: 1px solid var(--border-strong);
+  padding: 7px 14px;
+  display: inline-flex;
+  align-items: center;
+  gap: 7px;
+}
+.editor .btn-descargar:hover { border-color: var(--accent); color: var(--accent); }
+.editor .btn-descargar svg { width: 14px; height: 14px; }
+
+.editor button:disabled {
+  opacity: .45;
+  cursor: default;
+}
+
+@media (max-width: 640px) {
+  .editor { padding: 30px 24px 16px; }
+  .editor .titulo { font-size: 25px; }
 }

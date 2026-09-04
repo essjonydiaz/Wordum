@@ -1,4 +1,36 @@
-/* Estilos globales: aplican a toda la aplicacion */
+/* Estilos globales y paleta de la aplicacion */
+
+:root {
+  --bg:            #f7f6f3;
+  --paper:         #ffffff;
+  --border:        #e3dfd7;
+  --border-strong: #d3cec3;
+  --ink-strong:    #100f0d;
+  --ink:           #23211d;
+  --ink-soft:      #5f5b53;
+  --ink-faint:     #9a958a;
+  --accent:        #7c5cff;
+  --accent-soft:   #ece5ff;
+  --shadow:        0 1px 2px rgba(35,33,29,.05), 0 8px 24px rgba(35,33,29,.06);
+  --serif: "Iowan Old Style", "Palatino Linotype", Palatino, Georgia, serif;
+  --sans:  system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
+}
+
+@media (prefers-color-scheme: dark) {
+  :root {
+    --bg:            #17161a;
+    --paper:         #222127;
+    --border:        #32303a;
+    --border-strong: #45424f;
+    --ink-strong:    #fbfaf8;
+    --ink:           #e6e3de;
+    --ink-soft:      #b0aba5;
+    --ink-faint:     #8b8681;
+    --accent:        #9d84ff;
+    --accent-soft:   #362b5c;
+    --shadow:        0 1px 2px rgba(0,0,0,.3), 0 8px 24px rgba(0,0,0,.25);
+  }
+}
 
 * {
   box-sizing: border-box;
@@ -6,8 +38,10 @@
 
 body {
   margin: 0;
-  font-family: system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
-  color: #1a1a1a;
+  font-family: var(--sans);
+  background-color: var(--bg);
+  color: var(--ink);
+  -webkit-font-smoothing: antialiased;
 }
 
 #root {
