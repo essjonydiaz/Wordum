@@ -8,6 +8,34 @@
 </head>
 <body>
 
+
+<div class="pantalla-acceso" id="pantallaAcceso">
+    <form class="tarjeta-acceso" id="formAcceso" autocomplete="off">
+        <div class="logo-grande">E</div>
+
+        <h1>Editor de Texto SaaS</h1>
+        <p class="bienvenida">
+            Escribe tu nombre para entrar. Los documentos que crees<br>
+            quedarán firmados con él.
+        </p>
+
+        <div class="campo-acceso">
+            <label for="nombreUsuario">Tu nombre</label>
+            <input type="text" id="nombreUsuario" placeholder="Escribe tu nombre…"
+                   maxlength="60" required>
+        </div>
+
+        <button type="submit" class="btn-entrar" id="btnEntrar" disabled>
+            Entrar al editor
+        </button>
+
+        <p class="nota-acceso">
+            No se pide contraseña: esta pantalla identifica al autor
+            de los documentos dentro de la aplicación.
+        </p>
+    </form>
+</div>
+
 <header>
     <div class="marca">
         <div class="logo">E</div>
@@ -21,6 +49,11 @@
         </small>
     </div>
     <div class="spacer"></div>
+    <div class="usuario" id="bloqueUsuario">
+        <span class="inicial" id="inicialUsuario"></span>
+        <span class="nombre" id="nombreEnBarra"></span>
+        <button class="btn-salir" onclick="salir()">Salir</button>
+    </div>
     <div class="estado" id="estado">Listo</div>
     <button class="btn-guardar" id="btnGuardar" onclick="guardar()">Guardar</button>
 </header>

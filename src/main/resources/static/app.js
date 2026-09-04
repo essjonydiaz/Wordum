@@ -19,7 +19,104 @@ const $estado    = document.getElementById('estado');
 const $btn       = document.getElementById('btnGuardar');
 const $error     = document.getElementById('avisoError');
 
-cargarDocumentos();
+// ---------- Acceso ----------
+// No hay usuarios en el backend: esta pantalla solo identifica al autor
+// de los documentos y recuerda el nombre en este navegador.
+const CLAVE_USUARIO = 'editor-saas-usuario';
+
+const $pantallaAcceso = document.getElementById('pantallaAcceso');
+const $formAcceso     = document.getElementById('formAcceso');
+const $nombreUsuario  = document.getElementById('nombreUsuario');
+const $btnEntrar      = document.getElementById('btnEntrar');
+const $bloqueUsuario  = document.getElementById('bloqueUsuario');
+
+let usuario = null;
+
+// El boton solo se activa cuando hay algo escrito
+$nombreUsuario.addEventListener('input', () => {
+    $btnEntrar.disabled = $nombreUsuario.value.trim() === '';
+});
+
+$formAcceso.addEventListener('submit', (e) => {
+    e.preventDefault();
+    const nombre = $nombreUsuario.value.trim();
+    if (nombre === '') return;
+
+    guardarUsuario(nombre);
+    entrar(nombre);
+});
+
+// Al abrir la pagina: si ya entro antes, saltarse la pantalla
+iniciar();
+
+function iniciar() {
+    const recordado = leerUsuario();
+
+    if (recordado) {
+        entrar(recordado);
+    } else {
+        $pantallaAcceso.classList.remove('oculta');
+        $nombreUsuario.focus();
+    }
+}
+
+function entrar(nombre) {
+    usuario = nombre;
+
+    document.getElementById('inicialUsuario').textContent = nombre.charAt(0).toUpperCase();
+    document.getElementById('nombreEnBarra').textContent = nombre;
+    $bloqueUsuario.style.display = 'flex';
+
+    $pantallaAcceso.classList.add('oculta');
+
+    // Firmar los documentos nuevos con el nombre de quien entro
+    if ($autor.value.trim() === '') $autor.value = nombre;
+
+    cargarDocumentos();
+}
+
+function salir() {
+    clearTimeout(temporizador);
+
+    try {
+        localStorage.removeItem(CLAVE_USUARIO);
+    } catch (e) {
+        // Si el navegador bloquea el almacenamiento, igual se cierra la sesion
+    }
+
+    usuario = null;
+    $bloqueUsuario.style.display = 'none';
+
+    // Dejar el editor limpio para el siguiente
+    documentoActualId = null;
+    $titulo.value = '';
+    $contenido.value = '';
+    $autor.value = '';
+    actualizarPie();
+    mostrarEstado('Listo');
+
+    $nombreUsuario.value = '';
+    $btnEntrar.disabled = true;
+    $pantallaAcceso.classList.remove('oculta');
+    $nombreUsuario.focus();
+}
+
+// localStorage puede fallar (ventana privada, permisos), asi que se protege
+function leerUsuario() {
+    try {
+        return localStorage.getItem(CLAVE_USUARIO);
+    } catch (e) {
+        return null;
+    }
+}
+
+function guardarUsuario(nombre) {
+    try {
+        localStorage.setItem(CLAVE_USUARIO, nombre);
+    } catch (e) {
+        // Sin almacenamiento la sesion dura solo mientras la pagina este abierta
+    }
+}
 
 // Ctrl+S / Cmd+S para guardar
 document.addEventListener('keydown', e => {
