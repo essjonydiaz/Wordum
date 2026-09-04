@@ -1,24 +1,29 @@
-/* Estilos del componente App: contenedor general y encabezado */
+/* Estilos del componente App: barra superior y area de contenido */
 
 .app {
   min-height: 100vh;
-  padding: 34px 24px 60px;
+  display: flex;
+  flex-direction: column;
 }
 
-.header {
-  max-width: 720px;
-  margin: 0 auto 26px;
+/* Barra superior de ancho completo, pegada al borde de la ventana */
+.barra-superior {
+  flex: 0 0 auto;
+  height: 56px;
+  padding: 0 20px;
+  background: var(--paper);
+  border-bottom: 1px solid var(--border);
   display: flex;
   align-items: center;
   gap: 12px;
 }
 
-/* Cuadro con la inicial, igual que en el editor del backend */
+/* Cuadro con la inicial */
 .logo {
-  width: 30px;
-  height: 30px;
+  width: 28px;
+  height: 28px;
   flex: none;
-  border-radius: 8px;
+  border-radius: 7px;
   background: linear-gradient(140deg, var(--accent), #b39aff);
   display: grid;
   place-items: center;
@@ -26,27 +31,24 @@
   font-family: var(--serif);
   font-style: italic;
   font-weight: 700;
-  font-size: 17px;
+  font-size: 16px;
 }
 
-.header h1 {
+.barra-superior h1 {
   margin: 0;
-  font-size: 16px;
+  font-size: 15px;
   font-weight: 620;
   letter-spacing: -.01em;
   color: var(--ink-strong);
+  white-space: nowrap;
 }
 
-.header p {
-  margin: 2px 0 0;
-  font-size: 12.5px;
-  color: var(--ink-faint);
-}
-
-/* Distintivo morado que indica con que esta construido */
+/* Distintivo de la unidad: pastilla morada con icono de nube */
 .insignia {
-  margin-left: auto;
-  padding: 4px 11px;
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+  padding: 4px 11px 4px 9px;
   font-size: 10px;
   font-weight: 640;
   letter-spacing: .09em;
@@ -56,4 +58,31 @@
   border: 1px solid rgba(124,92,255,.34);
   border-radius: 20px;
   white-space: nowrap;
+}
+.insignia svg {
+  width: 13px;
+  height: 13px;
+  flex: none;
+}
+
+/* Empuja lo que sigue hasta la orilla derecha */
+.espacio { flex: 1; }
+
+.subtitulo {
+  font-size: 12.5px;
+  color: var(--ink-faint);
+  white-space: nowrap;
+}
+
+/* Area donde vive el editor */
+.contenido-principal {
+  flex: 1;
+  padding: 34px 24px 60px;
+  display: flex;
+  justify-content: center;
+}
+
+@media (max-width: 700px) {
+  .subtitulo { display: none; }
+  .contenido-principal { padding: 24px 16px 40px; }
 }
