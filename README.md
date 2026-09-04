@@ -5,7 +5,67 @@ Proyecto integrador de la unidad **Cómputo en la Nube — Software como Servici
 Editor de documentos de texto que corre en un servidor y se consume desde el navegador,
 sin instalar nada en la computadora del usuario. Construido con Spring Boot.
 
+Este repositorio contiene **dos aplicaciones independientes**:
+
+| Carpeta | Qué es | Tecnología | Puerto |
+|---|---|---|---|
+| Raíz del repositorio | Backend + editor web | Spring Boot + H2 | `8080` |
+| `frontend-editor-texto/` | Frontend de la Práctica 1 de React | React + Vite | `5173` |
+
 ---
+
+## Inicio rápido
+
+### Requisitos
+
+- **Java JDK 17 o superior** (para el backend)
+- **Node.js 20 o superior** (solo para el frontend de React)
+
+No hace falta instalar Maven: el proyecto incluye el wrapper (`mvnw`).
+
+### Aplicación 1 — Backend Spring Boot (puerto 8080)
+
+```bash
+# Windows
+.\mvnw.cmd spring-boot:run
+
+# Mac / Linux
+./mvnw spring-boot:run
+```
+
+Cuando aparezca `Started EditorTextoSaasApplication`, abrir:
+
+| URL | Qué muestra |
+|---|---|
+| http://localhost:8080/ | El editor de documentos completo |
+| http://localhost:8080/api/status | Mensaje de confirmación del servidor |
+| http://localhost:8080/api/documentos | La API REST en JSON |
+| http://localhost:8080/h2-console | La consola de la base de datos |
+
+Para la consola H2: JDBC URL `jdbc:h2:mem:editordb`, usuario `sa`, sin contraseña.
+
+### Aplicación 2 — Frontend React (puerto 5173)
+
+En **otra terminal**:
+
+```bash
+cd frontend-editor-texto
+npm install
+npm run dev
+```
+
+Después abrir http://localhost:5173
+
+> `npm install` solo hace falta la primera vez: `node_modules/` no se sube al
+> repositorio porque son miles de archivos que npm reconstruye a partir de
+> `package.json`.
+
+Las respuestas de la actividad de cierre están en
+[`frontend-editor-texto/RESPUESTAS.md`](frontend-editor-texto/RESPUESTAS.md).
+
+> Las dos aplicaciones son independientes y **todavía no se comunican entre sí**,
+> tal como indica la práctica. Cada una se puede ejecutar por separado.
+
 
 ## Cómo ejecutar el proyecto
 
