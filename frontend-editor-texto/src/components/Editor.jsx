@@ -1,7 +1,8 @@
 import { useState } from "react";
 import "./Editor.css";
 
-function Editor() {
+// autor llega desde App: es el nombre con el que se inicio sesion
+function Editor({ autor }) {
   // Estado del documento: lo que el usuario escribe se guarda aqui
   const [titulo, setTitulo] = useState("");
   const [contenido, setContenido] = useState("");
@@ -18,13 +19,18 @@ function Editor() {
     console.log("Documento:", {
       titulo,
       contenido,
+      autor,
     });
   }
 
   // Arma un archivo .txt en memoria y lo entrega al navegador
   function descargarDocumento() {
     const nombre = titulo.trim() === "" ? "documento" : titulo.trim();
-    const texto = titulo.trim() === "" ? contenido : titulo + "\n\n" + contenido;
+
+    const texto =
+      (titulo.trim() === "" ? "" : titulo + "\n") +
+      "Por " + autor + "\n\n" +
+      contenido;
 
     const archivo = new Blob([texto], { type: "text/plain;charset=utf-8" });
     const url = URL.createObjectURL(archivo);
@@ -48,8 +54,8 @@ function Editor() {
         onChange={(e) => setTitulo(e.target.value)}
       />
 
-      <p className="titulo-actual">
-        Título actual: <span>{titulo}</span>
+      <p className="firma">
+        Por <span>{autor}</span>
       </p>
 
       <div className="separador"></div>

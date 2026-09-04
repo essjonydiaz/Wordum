@@ -30,14 +30,14 @@
 .editor .titulo::placeholder { color: var(--ink-faint); font-weight: 500; }
 
 /* Linea que muestra en vivo el valor del estado (PARTE 15) */
-.editor .titulo-actual {
+.editor .firma {
   margin: 14px 0 0;
   font-family: var(--serif);
   font-style: italic;
   font-size: 14px;
   color: var(--accent);
 }
-.editor .titulo-actual span {
+.editor .firma span {
   color: var(--ink-strong);
 }
 

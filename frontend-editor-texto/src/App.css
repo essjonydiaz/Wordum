@@ -18,7 +18,6 @@
   gap: 12px;
 }
 
-/* Cuadro con la inicial */
 .logo {
   width: 28px;
   height: 28px;
@@ -55,10 +54,11 @@
   text-transform: uppercase;
   color: var(--accent);
   background: var(--accent-soft);
-  border: 1px solid rgba(124,92,255,.34);
+  border: 1px solid rgba(124, 92, 255, .34);
   border-radius: 20px;
   white-space: nowrap;
 }
+
 .insignia svg {
   width: 13px;
   height: 13px;
@@ -68,11 +68,51 @@
 /* Empuja lo que sigue hasta la orilla derecha */
 .espacio { flex: 1; }
 
-.subtitulo {
+/* Bloque con la sesion iniciada */
+.usuario {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 4px 5px 4px 9px;
+  border: 1px solid var(--border);
+  border-radius: 20px;
+}
+
+.usuario .inicial {
+  width: 22px;
+  height: 22px;
+  border-radius: 50%;
+  background: var(--accent-soft);
+  color: var(--accent);
+  display: grid;
+  place-items: center;
+  font-size: 11px;
+  font-weight: 700;
+}
+
+.usuario .nombre {
   font-size: 12.5px;
-  color: var(--ink-faint);
+  font-weight: 550;
+  color: var(--ink);
+  max-width: 130px;
+  overflow: hidden;
+  text-overflow: ellipsis;
   white-space: nowrap;
 }
+
+.btn-salir {
+  font-family: inherit;
+  font-size: 11.5px;
+  color: var(--ink-faint);
+  background: transparent;
+  border: none;
+  border-radius: 14px;
+  padding: 3px 9px;
+  cursor: pointer;
+  transition: background .15s, color .15s;
+}
+
+.btn-salir:hover { color: #d3453b; }
 
 /* Area donde vive el editor */
 .contenido-principal {
@@ -83,6 +123,6 @@
 }
 
 @media (max-width: 700px) {
-  .subtitulo { display: none; }
   .contenido-principal { padding: 24px 16px 40px; }
+  .usuario .nombre { max-width: 80px; }
 }

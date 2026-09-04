@@ -1,7 +1,46 @@
+import { useState } from "react";
+import Login from "./components/Login";
 import Editor from "./components/Editor";
 import "./App.css";
 
+const CLAVE_USUARIO = "editor-react-usuario";
+
+// El navegador puede bloquear localStorage (ventana privada), asi que se protege
+function leerUsuario() {
+  try {
+    return localStorage.getItem(CLAVE_USUARIO);
+  } catch (e) {
+    return null;
+  }
+}
+
 function App() {
+  // App es quien guarda el estado de la sesion, porque afecta a toda la pagina
+  const [usuario, setUsuario] = useState(leerUsuario);
+
+  function entrar(nombre) {
+    try {
+      localStorage.setItem(CLAVE_USUARIO, nombre);
+    } catch (e) {
+      // Sin almacenamiento la sesion dura mientras la pagina este abierta
+    }
+    setUsuario(nombre);
+  }
+
+  function salir() {
+    try {
+      localStorage.removeItem(CLAVE_USUARIO);
+    } catch (e) {
+      // Nada que limpiar si el navegador no permitio guardar
+    }
+    setUsuario(null);
+  }
+
+  // Mientras no haya sesion, lo unico que se muestra es la pantalla de acceso
+  if (!usuario) {
+    return <Login onEntrar={entrar} />;
+  }
+
   return (
     <div className="app">
       <header className="barra-superior">
@@ -18,11 +57,15 @@ function App() {
 
         <div className="espacio"></div>
 
-        <p className="subtitulo">Mi primer editor construido con React</p>
+        <div className="usuario">
+          <span className="inicial">{usuario.charAt(0).toUpperCase()}</span>
+          <span className="nombre">{usuario}</span>
+          <button className="btn-salir" onClick={salir}>Salir</button>
+        </div>
       </header>
 
       <main className="contenido-principal">
-        <Editor />
+        <Editor autor={usuario} />
       </main>
     </div>
   );
